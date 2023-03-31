@@ -18,10 +18,12 @@ var DATABASE_URL string = "DB_URL"
 
 func init() {
 	var err error
-	DATABASE, err = gorm.Open(postgres.Open(DATABASE_URL), &gorm.Config{})
+	if DATABASE_URL != "DB_URL" {
+		DATABASE, err = gorm.Open(postgres.Open(DATABASE_URL), &gorm.Config{})
 
-	if err != nil {
-		panic("Failed to connect database")
+		if err != nil {
+			panic("Failed to connect database")
+		}
 	}
 }
 
