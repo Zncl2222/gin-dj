@@ -1,6 +1,7 @@
 package gin_dj
 
 import (
+	"bufio"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -11,6 +12,25 @@ import (
 
 	"github.com/spf13/cobra"
 )
+
+
+func moduleName() string {
+    file, err := os.Open("go.mod")
+    if err != nil {
+        panic(err)
+    }
+    defer file.Close()
+
+    scanner := bufio.NewScanner(file)
+    scanner.Scan()
+    firstLine := scanner.Text()
+    if err := scanner.Err(); err != nil {
+        panic(err)
+    }
+
+    module := strings.TrimPrefix(firstLine, "module ")
+    return module
+}
 
 func read_and_parse(path string) []byte {
 	content, err := ioutil.ReadFile(path)
@@ -69,8 +89,10 @@ func TemplateInit(cmd *cobra.Command, args []string) {
 
 	// Read the file contents into a string
 	main_name := "main.go"
+	main_content := read_and_parse(parentDir + "/gin_dj/run.go")
+	modifiedContent := strings.ReplaceAll(string(main_content), "github.com/Zncl2222/gin-dj", projectName)
 	// Create the file
-	create_file(projectName+"/"+main_name, string(settings_content))
+	create_file(projectName+"/"+main_name, string(modifiedContent))
 
 	err = os.Chdir(projectName)
 	if err != nil {
@@ -91,6 +113,7 @@ func TemplateInit(cmd *cobra.Command, args []string) {
 
 func CreateApp(cmd *cobra.Command, args []string) {
 	appName := args[0]
+	module_name := moduleName()
 	err := os.MkdirAll(args[0], os.ModePerm)
 	if err != nil {
 		fmt.Println(err)
@@ -111,6 +134,7 @@ func CreateApp(cmd *cobra.Command, args []string) {
 	models_name := "models.go"
 	models_content := read_and_parse(parentDir + "/app/models.go")
 	modifiedContent = strings.ReplaceAll(string(models_content), "app", appName)
+	modifiedContent = strings.ReplaceAll(string(modifiedContent), "github.com/Zncl2222/gin-dj", module_name)
 	// Create the file
 	create_file(appName+"/"+models_name, modifiedContent)
 
