@@ -64,7 +64,7 @@ func execGoModGet() error {
 	return cmd.Run()
 }
 
-func TemplateInit(cmd *cobra.Command, args []string) {
+func ProjectInit(cmd *cobra.Command, args []string) {
 	projectName := args[0]
 	err := os.Mkdir(projectName, os.ModePerm)
 	if err != nil {
