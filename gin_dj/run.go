@@ -28,7 +28,7 @@ func Run() {
 func runServer(router *gin.Engine, port string) {
 	// Initialize router and middleware with the configuration
 	RouterInit(router)
-	core.MiddlewareInit(router)
+	core.GlobalMiddlewareInit(router)
 
 	// Start the web server
 	err := router.Run(port)

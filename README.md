@@ -6,6 +6,8 @@ This project are made depeneds on following packages.
 
 - [Gin](https://github.com/gin-gonic/gin)
 
+- [Gin-Contrib-Cors](https://github.com/gin-contrib/cors)
+
 - [Gorm](https://github.com/go-gorm/gorm)
 
 - [GormPostgresDriver](https://github.com/go-gorm/postgres) (Optional)
