@@ -6,7 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func TokenAuthHandler() gin.HandlerFunc {
+func TokenAuthMiddleware(router *gin.Engine) {
+	router.Use(tokenAuthHandler())
+}
+
+func tokenAuthHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if os.Getenv("TOKEN") != c.Request.Header.Get("Authentication") {
 			c.AbortWithStatusJSON(

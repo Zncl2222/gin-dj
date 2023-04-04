@@ -6,7 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func LimitMiddleware(limit int) gin.HandlerFunc {
+func LimitMiddleware(router *gin.Engine, limit int) {
+	router.Use(limitHandler(limit))
+}
+
+func limitHandler(limit int) gin.HandlerFunc {
 	semaphore := make(chan bool, limit)
 
 	return func(c *gin.Context) {
