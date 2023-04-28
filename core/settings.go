@@ -43,6 +43,8 @@ var CORSConfig = cors.Config{
 func GlobalMiddlewareInit(router *gin.Engine) {
 	middleware.CORSMiddleware(router, CORSConfig)
 	middleware.LimitMiddleware(router, 100)
+	middleware.CORSMiddleware()
+	middleware.CSRFToken()
 }
 
 // Custom midleware settings (for specific API)
