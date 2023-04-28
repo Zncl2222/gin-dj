@@ -47,5 +47,5 @@ func GlobalMiddlewareInit(router *gin.Engine) {
 
 // Custom midleware settings (for specific API)
 func MiddlewareInit(router *gin.Engine) {
-	middleware.TokenAuthMiddleware(router)
+	// middleware.TokenAuthMiddleware(router, os.Getenv('yourtokenname'))
 }
