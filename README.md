@@ -10,6 +10,10 @@ This project are made depeneds on following packages.
 
 - [Gorm](https://github.com/go-gorm/gorm)
 
+- [gorilla/csrf](https://github.com/gorilla/csrf)
+
+- [gin-adapter](https://github.com/gwatts/gin-adapter)
+
 - [GormPostgresDriver](https://github.com/go-gorm/postgres) (Optional)
 
 ## Installation
