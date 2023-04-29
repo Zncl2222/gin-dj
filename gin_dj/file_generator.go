@@ -81,24 +81,22 @@ func ProjectInit(cmd *cobra.Command, args []string) {
 		fmt.Println(err)
 		return
 	}
+	// Create settings.go
 	settings_name := "settings.go"
 	settings_content := read_and_parse(parentDir + "/core/settings.go")
-	// Create the file
 	create_file(projectName+"/core/"+settings_name, string(settings_content))
 
-	// Read the file contents into a string
+	// Create main.go
 	main_name := "main.go"
 	main_content := read_and_parse(parentDir + "/gin_dj/run.go")
 	modifiedContent := strings.ReplaceAll(string(main_content), "github.com/Zncl2222/gin-dj", projectName)
 	modifiedContent = strings.ReplaceAll(string(modifiedContent), "gin_dj", "main")
-	// Create the file
 	create_file(projectName+"/"+main_name, string(modifiedContent))
 
-	// Read the file contents into a string
+	// Create urls.go
 	urls_name := "urls.go"
 	urls_content := read_and_parse(parentDir + "/gin_dj/urls.go")
 	modifiedContent = strings.ReplaceAll(string(urls_content), "gin_dj", "main")
-	// Create the file
 	create_file(projectName+"/"+urls_name, string(modifiedContent))
 
 	err = os.Chdir(projectName)
@@ -130,33 +128,29 @@ func CreateApp(cmd *cobra.Command, args []string) {
 	_, filename, _, _ := runtime.Caller(0)
 	dir := filepath.Dir(filename)
 	parentDir := filepath.Dir(dir)
-	// Read the file contents into a string
+	// Create seruakuzers,gi
 	serializers_name := "serializers.go"
 	serializers_content := read_and_parse(parentDir + "/app/serializers.go")
 	modifiedContent := strings.ReplaceAll(string(serializers_content), "app", appName)
-	// Create the file
 	create_file(appName+"/"+serializers_name, modifiedContent)
 
-	// Read the file contents into a string
+	// Create models.go
 	models_name := "models.go"
 	models_content := read_and_parse(parentDir + "/app/models.go")
 	modifiedContent = strings.ReplaceAll(string(models_content), "app", appName)
 	modifiedContent = strings.ReplaceAll(string(modifiedContent), "github.com/Zncl2222/gin-dj", module_name)
-	// Create the file
 	create_file(appName+"/"+models_name, modifiedContent)
 
-	// Read the file contents into a string
+	// Create urls.go
 	urls_name := "urls.go"
 	urls_content := read_and_parse(parentDir + "/app/urls.go")
 	modifiedContent = strings.ReplaceAll(string(urls_content), "app", appName)
-	// Create the file
 	create_file(appName+"/"+urls_name, modifiedContent)
 
-	// Read the file contents into a string
+	// Create views.go
 	views_name := "views.go"
 	views_content := read_and_parse(parentDir + "/app/views.go")
 	modifiedContent = strings.ReplaceAll(string(views_content), "app", appName)
-	// Create the file
 	create_file(appName+"/"+views_name, modifiedContent)
 
 	fmt.Printf("Successfully created folder structure for %s!\n", appName)
